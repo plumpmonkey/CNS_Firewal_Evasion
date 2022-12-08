@@ -1,5 +1,5 @@
 {
-  "name": "nmap-bypas",
+  "name": "porthopping",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",

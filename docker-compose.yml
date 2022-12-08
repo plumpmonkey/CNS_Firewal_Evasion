@@ -1,0 +1,22 @@
+services:
+  www_node:
+    build: ./www_node
+    image: www_node
+    container_name: www_node
+    hostname: www_node
+    tty: true
+    ports:
+      - "8080:8080"
+    network_mode: bridge
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    command: bash -c "iptables -A INPUT -p tcp -m tcp -m multiport --dports 80,443,8080 -j ACCEPT &&
+                      iptables -A OUTPUT -p tcp -m tcp -m multiport --dports 24 -j ACCEPT &&
+                      iptables -A INPUT -m conntrack -j ACCEPT --ctstate RELATED,ESTABLISHED &&
+                      iptables -A INPUT -j DROP &&
+                      iptables -A OUTPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT &&
+                      iptables -A OUTPUT -j DROP &&
+                      iptables -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT &&
+                      iptables -A FORWARD -j DROP &&
+                      npm start"

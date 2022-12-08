@@ -1,0 +1,23 @@
+body {
+	margin-top: 100px;
+	background: #7a7392;
+	font-family: "Sans-serif", Verdana, serif;
+	font-size: 20px;
+}
+
+#message {
+    margin-bottom: 15px;
+    font-size: 38px;
+}
+
+.alert-success {
+    color: #9fff00;
+    background-color: rgb(150 244 4 / 28%);
+    border: 0;
+}
+
+.alert-info {
+    color: #a0c1f9;
+    background-color: #334c71;
+    border: 0;
+}

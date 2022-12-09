@@ -9,6 +9,7 @@ app.set('views', './views')
 app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/views'))
 app.listen(8080, () => console.log(`Listening on port 8080`))
+app.listen(80, () => console.log(`Listening on port 80`))
 
 const { exec } = require("child_process")
 
@@ -29,7 +30,14 @@ app.post('/form-submission', async function(req, res) {
 })
 
 app.get('/', function(req, res) {
-    res.render('index')
+    const port = req.socket.localPort
+  
+    if(port == 8080) {
+      res.render('index')
+    } else if (port == 80) {
+      res.render('index2')
+    }
+    
 })
 
 // Function to execute user input on machine

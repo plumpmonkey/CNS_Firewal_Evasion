@@ -13,7 +13,7 @@ RUN apt update  \
         net-tools    \
         gnupg \
         iptables \ 
-        netcat
+        ncat
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x  | bash -
 
@@ -25,6 +25,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 8080 24
+EXPOSE 8080 
 
 CMD ["npm", "start"]

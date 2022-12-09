@@ -9,12 +9,13 @@ services:
       - "8080:8080"
       - "9999:9999"
       - "8888:8888"
+      - "22222:22"
 
     network_mode: bridge
     cap_add:
       - NET_ADMIN
       - NET_RAW
-    command: bash -c "iptables -A INPUT -p tcp -m tcp -m multiport --dports 80,8080,8888,9999 -j ACCEPT &&
+    command: bash -c "iptables -A INPUT -p tcp -m tcp -m multiport --dports 22,80,8080,8888,9999 -j ACCEPT &&
                       iptables -A OUTPUT -p tcp -m tcp -m multiport --dports 25,80 -j ACCEPT &&
                       iptables -A INPUT -m conntrack -j ACCEPT --ctstate RELATED,ESTABLISHED &&
                       iptables -A INPUT -j DROP &&
@@ -22,4 +23,6 @@ services:
                       iptables -A OUTPUT -j DROP &&
                       iptables -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT &&
                       iptables -A FORWARD -j DROP &&
-                      npm start"
+                      service ssh start &&
+                      npm start "
+                      

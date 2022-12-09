@@ -13,7 +13,9 @@ RUN apt update  \
         net-tools    \
         gnupg \
         iptables \ 
-        ncat
+        ncat \ 
+        openssh-server \
+        sudo 
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x  | bash -
 
@@ -25,6 +27,7 @@ RUN npm install
 
 COPY . .
 
+RUN useradd -ms /bin/bash -p "$(openssl passwd -1 uwe)" firewall
+
 EXPOSE 8080 
 
-CMD ["npm", "start"]
